@@ -1,5 +1,7 @@
-package hello.advanced.trace;
+package hello.advanced.trace.hellotrace;
 
+import hello.advanced.trace.TraceId;
+import hello.advanced.trace.TraceStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -32,9 +34,11 @@ public class HelloTraceV1 {
         TraceId traceId = status.getTraceId();
 
         if (e == null) {
-            log.info("[{}] {}{} time={}ms", traceId.getId(), addSpace(COMPLETE_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs, e.toString());
+            log.info("[{}] {}{} time={}ms", traceId.getId(), addSpace(COMPLETE_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs);
         } else {
-            log.info("[{}] {}{} time={}ms ex={}", addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs, e.toString());
+            log.info("[{}] {}{} time={}ms ex={}", traceId.getId(),
+                    addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs,
+                    e.toString());
         }
     }
 
